@@ -1,0 +1,170 @@
+.octopus {
+  width: 110px;
+  height: 70px;
+  background-color: #c57ffc;
+  border-radius: 100px 100px 30px 30px;
+  box-shadow: 0 -1px 1px 0, 0 0 3px 0 #fff inset;
+  position: relative;
+}
+
+.octopus:before {
+  content: "";
+  display: inline-block;
+  width: 3px;
+  height: 7px;
+  background-color: #000;
+  border-radius: 50%;
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  box-shadow: -1px -1px 1px 0 #fff,
+    0 -1px 1px 3px #0189c0,
+    0 -1px 3px 2px #000,
+    0 -2px 0 7px #fff,
+    0 -2px 2px 7px #000,
+    40px 0 0 0 #000,
+    39px -1px 1px 0 #fff,
+    40px -1px 1px 3px #0189c0,
+    40px -1px 3px 2px #000,
+    40px -2px 0 7px #fff,
+    40px -2px 2px 7px #000;
+}
+
+.octopus:after {
+  content: "";
+  display: block;
+  width: 110px;
+  height: 70px;
+  background-color: #c57ffc;
+  border-radius: 0 0 80px 80px;
+  box-shadow: 0 3px 1px -1px #000;
+  position: absolute;
+  bottom: -28px;
+  transform: scaleY(0.4);
+}
+
+.octo-tentacle {
+  width: 8px;
+  height: 15px;
+  background-color: #c57ffc;
+  border-radius: 0 0 10px 10px;
+  transform: rotate(-30deg);
+  position: absolute;
+  bottom: -20px;
+  box-shadow: 0 1px 1px 0.5px,
+    25px 10px 1px 1px #c57ffc,
+    25px 11px 1px 1px #000,
+    36px 35px 1px 1px #c57ffc,
+    36px 34px 1px 1px #000,
+    63px 48px 1px 1px #c57ffc,
+    63px 48px 1px 1px #000,
+    93px 40px 1px 1px #c57ffc,
+    93px 39px 1px 1px #000;
+}
+
+.octo-tentacle:before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 15px;
+  background-color: #c57ffc;
+  border-radius: 8px 8px 0 10px;
+  transform: rotate(50deg);
+  position: absolute;
+  top: -11px;
+  left: 3px;
+  box-shadow: -1px 0 2px 0 #000,
+    30px 9px 1px 1px #c57ffc,
+    30px 10px 1px 1px #000,
+    50px -4px 1px 1px #c57ffc,
+    50px -6px 1px 1px #000,
+    75px -17px 1px 1px #c57ffc,
+    75px -18px 1px 1px #000,
+    102px -25px 1px 1px #c57ffc,
+    102px -24px 1px 1px #000;
+}
+
+.octo-tentacle:after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 15px;
+  background-color: #c57ffc;
+  border-radius: 8px 8px 0 10px;
+  transform: rotate(60deg);
+  position: absolute;
+  top: 11px;
+  left: -5px;
+  box-shadow: 0 1px 1px 0 #000,
+    20px 0 1px 1px #c57ffc,
+    20px 1px 1px 1px #000,
+    45px -12px 1px 1px #c57ffc,
+    45px -11px 1px 1px #000,
+    73px -28px 1px 1px #c57ffc,
+    73px -27px 1px 1px #000,
+    85px -47px 1px 1px #c57ffc,
+    85px -46px 1px 1px #000;
+}
+
+.octo-smile {
+  width: 45px;
+  height: 20px;
+  border-radius: 0 0 50px 50px;
+  border-bottom: 3px solid;
+  transform: scaleY(0.5);
+  position: absolute;
+  top: 43px;
+  left: 35px;
+  z-index: 1;
+}
+
+.octo-smile:before {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 7px;
+  border-radius: 3px 0 0 3px;
+  border-left: 1px solid;
+  position: absolute;
+  left: -1px;
+  top: 5px;
+  transform: scaleY(2) rotate(30deg);
+}
+
+.octo-smile:after {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 7px;
+  border-radius: 3px 0 0 3px;
+  border-right: 1px solid;
+  position: absolute;
+  left: 45px;
+  top: 1px;
+  transform: scaleY(2) rotate(150deg);
+}
+
+.octo-chin {
+  width: 12px;
+  height: 7px;
+  border-radius: 0 0 7px 7px;
+  border-bottom: 1px solid;
+  position: absolute;
+  bottom: 0;
+  left: 55px;
+  transform: scaleY(0.7);
+  z-index: 1;
+}
+
+.octo-chin:after {
+  content: "";
+  width: 10px;
+  height: 2px;
+  display: block;
+  border-radius: 0 0 50px 50px;
+  border-bottom: 3px solid #ad6cea;
+  transform: rotate(-45deg) scale(6, 4);
+  position: absolute;
+  bottom: 6px;
+  right: -30px;
+}

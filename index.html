@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Depth Runner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app">
+      <canvas id="game-canvas" aria-label="Depth Runner game canvas"></canvas>
+
+      <section id="hud" aria-label="Game status">
+        <div class="hud-block" id="depth-block">
+          <span class="hud-label">Distance</span>
+          <span class="hud-value" id="depth-value">0m</span>
+        </div>
+        <div class="hud-block" id="best-block">
+          <span class="hud-label">Best</span>
+          <span class="hud-value" id="best-value">0m</span>
+        </div>
+        <div class="hud-block" id="air-block">
+          <span class="hud-label">Air</span>
+          <div id="air-gauge-shell" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
+            <div id="air-gauge-fill"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="overlay" class="visible" aria-live="polite">
+        <h1 id="overlay-title">Depth Runner</h1>
+        <p id="overlay-subtitle">Hold SPACE or touch and hold to dive deeper.</p>
+        <p id="overlay-stats"></p>
+        <button id="overlay-button" type="button">Press to Begin</button>
+        <p><a href="animals/index.html">View sea creature art</a></p>
+      </section>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>

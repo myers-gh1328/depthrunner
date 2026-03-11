@@ -1,111 +1,103 @@
-# Implementation Plan: [FEATURE]
+# Implementation Plan: Depth Runner Underwater Survival
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
-
-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
+**Branch**: `[001-build-depth-runner]` | **Date**: 2026-03-10 | **Spec**: `specs/001-build-depth-runner/spec.md`
+**Input**: Feature specification from `specs/001-build-depth-runner/spec.md`
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Implement a client-only underwater endless runner where a left-anchored diver auto-swims through scrolling hazards, uses explicit rise/dive controls, and survives by avoiding collisions and managing a depth-sensitive air tank. The implementation uses Canvas 2D primitives with clear silhouettes, smooth depth-zone transitions, gradual pacing increases, pressure-band fairness guards, and local best-distance persistence for replay motivation.
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
-
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]  
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]  
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]  
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]  
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]  
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]  
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]  
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Language/Version**: HTML5 + CSS3 + JavaScript (ES2020+)  
+**Primary Dependencies**: Browser Canvas 2D API, `requestAnimationFrame`, `localStorage` (no external libraries)  
+**Storage**: Browser `localStorage` for best distance (`depthrunner.bestDistanceMeters`, with legacy fallback)  
+**Testing**: Manual playtest checklist + browser devtools performance profiling + lightweight in-browser debug toggles  
+**Target Platform**: Modern desktop and mobile browsers (Chrome, Edge, Safari, Firefox current stable)  
+**Project Type**: Client-side browser game (single-page, no backend)  
+**Performance Goals**: Smooth 60fps target during normal gameplay on representative desktop/mobile devices  
+**Constraints**: No backend, no build tooling requirement, index.html-first deliverable, readable learner-friendly code, input parity across keyboard/touch  
+**Scale/Scope**: Single-player endless runner with 3 depth zones, 9 primary obstacle families, air pickups, HUD, 3 game states, and optional split creature-gallery assets
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- `Client-only architecture`: Confirms no backend, no server runtime dependency, and no build tool requirement.
-- `Single-file delivery`: Confirms the feature can be delivered within `index.html`-first constraints.
-- `Visual readability`: Lists all new gameplay entities and how each remains instantly recognizable.
-- `Performance`: Defines expected frame-time impact and validation approach for maintaining smooth 60fps.
-- `Code clarity`: Describes how logic remains readable for learners (function boundaries, naming, flow).
-- `Progression quality`: Explains how challenge increases by mechanics/composition, not speed alone.
-- `Audio fallback`: Confirms gameplay remains fully functional when audio is blocked or unavailable.
-- `Input parity`: Confirms keyboard and touch are both supported with shared gameplay logic where feasible.
+Pre-Design Gate Status: PASS
+
+- `Client-only architecture`: PASS. Runtime is fully in-browser with no network/service dependency.
+- `Single-file delivery`: PASS. Design keeps `index.html`-first compatibility; optional split into `game.js`/`styles.css` remains static-host friendly.
+- `Visual readability`: PASS. Diver, hazards, pickups, and zone backdrops are defined with distinct silhouettes/colors and explicit recognition requirements.
+- `Performance`: PASS. Object pooling/capped spawn density and frame-budget-aware effects are planned to maintain smooth pacing.
+- `Code clarity`: PASS. Logic is organized by clear systems (input, physics, spawning, collision, HUD, state machine).
+- `Progression quality`: PASS. Difficulty ramps through combined hazard composition, behavior variety, and air pressure, not speed alone.
+- `Audio fallback`: PASS. No required audio dependency; gameplay loop is fully complete without sound.
+- `Input parity`: PASS. Same movement action model for keyboard and touch with shared control state.
+
+Post-Design Gate Status: PASS
+
+- `Client-only architecture`: PASS after design artifact review.
+- `Single-file delivery`: PASS after quickstart/decomposition review.
+- `Visual readability`: PASS after entity/contract definitions.
+- `Performance`: PASS after research decisions and test procedure.
+- `Code clarity`: PASS after data model and system boundaries were documented.
+- `Progression quality`: PASS after zone/hazard progression mapping.
+- `Audio fallback`: PASS after explicit non-blocking requirement in contracts.
+- `Input parity`: PASS after unified input contract.
 
 ## Project Structure
 
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
-├── plan.md              # This file (/speckit.plan command output)
-├── research.md          # Phase 0 output (/speckit.plan command)
-├── data-model.md        # Phase 1 output (/speckit.plan command)
-├── quickstart.md        # Phase 1 output (/speckit.plan command)
-├── contracts/           # Phase 1 output (/speckit.plan command)
-└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+specs/001-build-depth-runner/
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/
+│   └── gameplay-interface.md
+└── tasks.md
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
-src/
-├── models/
-├── services/
-├── cli/
-└── lib/
-
-tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+index.html
+styles.css
+game.js
+animals/
+├── index.html
+├── animals.css
+├── animals.js
+├── starfish.html
+├── starfish.css
+├── octopus.html
+├── octopus.css
+├── crab.html
+├── crab.css
+├── sea-horse.html
+├── sea-horse.css
+├── ball-fish.html
+└── ball-fish.css
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: Single-file-first browser game architecture. Initial implementation can live entirely in `index.html`; if split for readability, `styles.css` and `game.js` remain optional static companions with zero build step.
+
+## Phase 0 Research Focus
+
+- Validate rise/dive control tuning strategy for fair but tense vertical navigation.
+- Validate explicit rise/dive control tuning for fair but tense vertical navigation.
+- Define safe obstacle composition and spawn-spacing rules per depth zone.
+- Define air-depletion scaling model that increases pressure without abrupt difficulty spikes.
+- Confirm Canvas rendering and update-loop practices to preserve smooth frame pacing.
+
+## Phase 1 Design Focus
+
+- Define runtime entities and state transitions for diver, hazards, pickups, and sessions.
+- Specify gameplay interface contracts for controls, HUD semantics, persistence key, and game-state transitions.
+- Produce quickstart validation flow for desktop/mobile parity, persistence checks, and performance sanity checks.
 
 ## Complexity Tracking
 
-> **Fill ONLY if Constitution Check has violations that must be justified**
-
-| Violation | Why Needed | Simpler Alternative Rejected Because |
-|-----------|------------|-------------------------------------|
-| [e.g., 4th project] | [current need] | [why 3 projects insufficient] |
-| [e.g., Repository pattern] | [specific problem] | [why direct DB access insufficient] |
+No constitution violations identified; complexity tracking table not required.

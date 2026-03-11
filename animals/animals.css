@@ -1,0 +1,79 @@
+:root {
+  --ocean-bg: #006a94;
+  --card-bg: rgba(255, 255, 255, 0.12);
+  --card-border: rgba(255, 255, 255, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--ocean-bg);
+  color: #f4fbff;
+  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+.animals-page {
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.animals-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.animals-header h1 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.animals-header a {
+  color: #d0f5ff;
+}
+
+.animals-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.animal-card {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  border-radius: 18px;
+  border: 1px solid var(--card-border);
+  background: var(--card-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.animal-starfish .starfish {
+  margin-top: 8px;
+}
+
+.animal-octopus .octopus {
+  margin-top: -20px;
+}
+
+.animal-crab .crab {
+  margin-top: 14px;
+}
+
+.animal-sea-horse .sea-horse {
+  margin-top: -16px;
+  margin-left: 15px;
+}
+
+.animal-ball-fish .ball-fish {
+  margin-top: -8px;
+}

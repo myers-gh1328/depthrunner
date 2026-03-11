@@ -1,0 +1,9 @@
+{
+  "name": "depthrunner",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Depth Runner browser game",
+  "scripts": {
+    "dev": "npx serve ."
+  }
+}
